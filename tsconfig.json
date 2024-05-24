@@ -7,7 +7,8 @@
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-
+    "sourceRoot": "specification.shared",
+   
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "strictPropertyInitialization": false,
@@ -31,4 +32,7 @@
     "dist/**/*",
     "**/__tests__/**",
   ],
+  "paths":{
+    "specification.shared/src/*": ["./src/*"]
+  }
 }

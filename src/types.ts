@@ -14,27 +14,10 @@ export enum HttpErrorsEnum {
     SrvErrInternalServerError = 500
 }
 
-
-
-
-
-
-
-
-
-
-export const CONFIG_VERSION = "0.1"
-
-export enum ModbusFunctionCodes {
-    readHoldingRegisters = 3,
-    readCoils = 1,
-    readAnalogInputs = 4,
-    writeCoils = 15,
-    writeAnalogOutput = 6,
-    readWriteHoldingRegisters = 21,
-    readAnalogs = 22,
-    readWriteCoils = 20,
-    writeHoldingRegisters = 16,
+export enum ModbusRegisterType {
+    HoldingRegister = 3,
+    Coils = 1,
+    AnalogInputs = 4,
     IllegalFunctionCode = 0
 }
 export enum EnumNumberFormat {
@@ -68,12 +51,12 @@ export interface Ivalue {
     value: string
 }
 export interface IFunctionCode {
-    code: ModbusFunctionCodes,
+    registerType: ModbusRegisterType,
     name: string
 }
 export interface Iconverter {
     name: Converters
-    functionCodes: ModbusFunctionCodes[]
+    registerTypes: ModbusRegisterType[]
 }
 
 export interface Icvtparameter {
@@ -92,7 +75,6 @@ export function jsonConverter<K, V>(body: Object, cnv: (a: string) => K): Map<K,
     return m;
 }
 
-export var FCOffset: number = 100000
 export enum IdentifiedStates {
     notIdentified = 0,
     identified = 1,
@@ -112,7 +94,7 @@ export enum VariableTargetParameters {
     noParam = 0
 }
 
-export type Converters = "sensor" | "text_sensor" | "select_sensor" | "binary_sensor" | "value_sensor" | "number" | "select" | "text" | "button" | "value";
+export type Converters =  "number" | "select" | "text" | "binary" | "value";
 export type ConverterParameter = Inumber | Iselect | Itext | Ivalue
 
 
@@ -130,31 +112,29 @@ export interface IminMax {
 export interface Ientity extends Iid {
     mqttname?: string,
     converter: Iconverter;
+    readonly: boolean;
     variableConfiguration?: {
         targetParameter: VariableTargetParameters,
         entityId?: number
     }
-    functionCode: ModbusFunctionCodes
-    modbusAddress: number;
-    icon?: string;
-    forceUpdate?: boolean;
-    converterParameters?: ConverterParameter;
+    registerType: ModbusRegisterType
+    modbusAddress: number
+    icon?: string
+    forceUpdate?: boolean
+    converterParameters?: ConverterParameter
 }
 export function getParameterType(converter: Iconverter | null | undefined): string | undefined {
     if (converter)
         switch (converter.name) {
-            case "text_sensor":
             case "text":
                 return "Itext";
-            case "sensor":
             case "number":
                 return "Inumber";
             case "select":
-            case "select_sensor":
                 return "Iselect";
-            case "value_sensor":
+            case "value":
                 return "Ivalue";
-            case "binary_sensor":
+            case "binary":
                 return "";
             default:
         }
@@ -260,7 +240,6 @@ export interface IbaseSpecification {
     status: SpecificationStatus;
     identification?: Iidentification[];
     i18n: ISpecificationTexts[];
-    publicSpecification?: Ispecification; // used to compare cloned or contributed with public specs on the angular client.
     nextEntityId?: number; // required for cloned specs.The entityId should never be reused for a specification regardles of the specification status (public or cloned). Then entity comparision is possible
 }
 export interface ImodbusEntityIdentification extends Iid {
