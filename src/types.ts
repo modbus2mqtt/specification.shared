@@ -251,6 +251,7 @@ export interface ImodbusEntityIdentification extends Iid {
 export interface ImodbusSpecification extends IbaseSpecification {
     identified: IdentifiedStates;
     entities: ImodbusEntity[];
+    pullUrl?:string;
 }
 export interface Ispecification extends IbaseSpecification {
     entities: Ientity[];

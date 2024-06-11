@@ -33,6 +33,7 @@ export enum MessageTypes {
     differentManufacturer = 24,
     differentModel = 25,
     differentTranslation = 26,
+    noMqttDiscoveryLanguage  = 31
 }
 
 export enum MessageCategories {
@@ -43,7 +44,8 @@ export enum MessageCategories {
     compare = 4,
     compareEntity = 5,
     validateOtherIdentification = 6,
-    validateSpecification = 7
+    validateSpecification = 7,
+    configuration = 8
 }
 export interface Imessage {
     type: MessageTypes,
