@@ -1,4 +1,4 @@
-import { ImodbusEntity, ImodbusSpecification, Inumber, SpecificationStatus, VariableTargetParameters, getParameterType, Itext, Iselect, SpecificationFileUsage, IdentifiedStates, Ispecification, getSpecificationI18nEntityName, Ientity } from "./types";
+import { ImodbusEntity, ImodbusSpecification, Inumber, SpecificationStatus, VariableTargetParameters, getParameterType, Itext, Iselect, SpecificationFileUsage, IdentifiedStates, Ispecification, getSpecificationI18nEntityName, Ientity } from "./types.js";
 export enum MessageTypes {
     // validation
     nameTextMissing = 0,
@@ -56,14 +56,14 @@ export interface Imessage {
 export const editableConverters: string[] = ['binary_sensor', 'number', 'text', 'select', 'button']
 
 export function validateTranslation(spec: Ispecification, language: string, msgs: Imessage[]) {
-    let en = spec.i18n.find(l => l.lang === language)
+    let en = spec.i18n.find((l: { lang: string; }) => l.lang === language)
     let category = MessageCategories.validateTranslation
     if (!en)
         msgs.push({ type: MessageTypes.translationMissing, category: category, additionalInformation: language })
     else {
-        spec.entities.forEach(ent => {
+        spec.entities.forEach((ent: { variableConfiguration?: any; id: number; }) => {
             if (!ent.variableConfiguration) {
-                let translation = en!.texts.find(tx => tx.textId == "e" + ent.id)
+                let translation = en!.texts.find((tx: { textId: string; }) => tx.textId == "e" + ent.id)
                 if (!translation)
                     msgs.push({
                         type: MessageTypes.entityTextMissing,
@@ -73,7 +73,7 @@ export function validateTranslation(spec: Ispecification, language: string, msgs
                     })
             }
         })
-        let nameTranslation = en?.texts.find(tx => tx.textId == "name")
+        let nameTranslation = en?.texts.find((tx: { textId: string; }) => tx.textId == "name")
         if (!nameTranslation)
             msgs.push({ type: MessageTypes.nameTextMissing, category: category })
     }

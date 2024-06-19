@@ -8,22 +8,28 @@
     "validation"
   ],
   "bugs": "https://github.com/modbus2mqtt/server/issues",
-  "main": "dist/index.js",
-  "type": "commonjs",
+  "main": "cjs/index.js",
+  "types": "cjs/index.d.ts",
+
+  "type": "module",
   "author": "Volkmar Nissen <volkmar.nissen@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/modbus2mqtt/specification.shared"
   },
+  "exports": {
+    "require": "./cjs/index.js",
+    "import": "./esm/index.js"
+  },
   "scripts": {
-    "build": "tsc",
+    "build.cjs": "tsc --build tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > cjs/package.json",
+    "build.esm": "tsc  --build tsconfig.json && echo '{\"type\": \"module\"}' > esm/package.json",
+    "build": "npm run build.cjs && npm run build.esm",
     "prepack": "../server.shared/changeModbusDependencies.sh package.json",
     "postpack": "rm package.json && mv package.json.bck package.json"
   },
   "devDependencies": {
-    "ts-jest": "^29.1.5",
-    "ts-node": "^10.9.2",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   }
