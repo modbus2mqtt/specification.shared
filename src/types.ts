@@ -94,7 +94,7 @@ export enum VariableTargetParameters {
     noParam = 0
 }
 
-export type Converters =  "number" | "select" | "text" | "binary" | "value";
+export type Converters = "number" | "select" | "text" | "binary" | "value";
 export type ConverterParameter = Inumber | Iselect | Itext | Ivalue
 
 
@@ -173,6 +173,7 @@ export interface ImodbusData {
     modbusValue: number[];
     mqttValue: string | number;
     identified: IdentifiedStates;
+    modbusError?: string;
 }
 export interface ImodbusEntity extends ImodbusData, Ientity { }
 
@@ -195,7 +196,7 @@ declare global {
     }
 }
 
-export const SPECIFICATION_VERSION = "0.2"
+export const SPECIFICATION_VERSION = "0.3"
 export const enum SpecificationStatus {
     published = 0,
     cloned = 1,
@@ -251,7 +252,7 @@ export interface ImodbusEntityIdentification extends Iid {
 export interface ImodbusSpecification extends IbaseSpecification {
     identified: IdentifiedStates;
     entities: ImodbusEntity[];
-    pullUrl?:string;
+    pullUrl?: string;
 }
 export interface Ispecification extends IbaseSpecification {
     entities: Ientity[];
