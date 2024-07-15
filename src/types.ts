@@ -13,7 +13,7 @@ export enum HttpErrorsEnum {
     ErrInvalidParameter = 422,
     SrvErrInternalServerError = 500
 }
-
+export const BUS_TIMEOUT_DEFAULT = 500
 export enum ModbusRegisterType {
     HoldingRegister = 3,
     Coils = 1,
