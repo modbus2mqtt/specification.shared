@@ -121,6 +121,7 @@ export interface Ientity extends Iid {
     modbusAddress: number
     icon?: string
     forceUpdate?: boolean
+    entityCategory?: string
     converterParameters?: ConverterParameter
 }
 export function getParameterType(converter: Iconverter | null | undefined): string | undefined {
