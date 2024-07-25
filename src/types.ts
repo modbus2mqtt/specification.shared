@@ -281,19 +281,28 @@ export function getSpecificationI18nText(spec: IbaseSpecification, language: str
 
     return null;
 }
-export function setSpecificationI18nText(spec: IbaseSpecification, language: string, textId: string, text: string): void {
+export function setSpecificationI18nText(spec: IbaseSpecification, language: string, textId: string, text: string | null | undefined): void {
     if (!spec || !spec.i18n)
         return;
     let texts = spec.i18n.find(i18 => i18.lang === language);
     if (!texts) {
-        spec.i18n.push({ lang: language, texts: [] })
+        if (text)
+            spec.i18n.push({ lang: language, texts: [] })
+        else
+            return;
         texts = spec.i18n[spec.i18n.length - 1];
     }
     let textIndex = texts.texts.findIndex(tx => tx.textId === textId);
-    if (textIndex >= 0)
-        texts.texts[textIndex].text = text;
+
+    if (textIndex >= 0) {
+        if (text)
+            texts.texts[textIndex].text = text;
+        else
+            texts.texts.splice(textIndex, 1)
+    }
     else
-        texts.texts.push({ textId: textId, text: text })
+        if (text)
+            texts.texts.push({ textId: textId, text: text })
 }
 export function deleteSpecificationI18nText(spec: IbaseSpecification, textId: string): void {
     if (!spec || !spec.i18n)
@@ -316,13 +325,13 @@ export function getSpecificationI18nEntityName(spec: IbaseSpecification, languag
 export function getSpecificationI18nEntityOptionName(spec: IbaseSpecification, language: string, entityId: number, modbusValue: number, noFallbackLanguage: boolean = false): string | null {
     return getSpecificationI18nText(spec, language, "e" + entityId + "o." + modbusValue, noFallbackLanguage);
 }
-export function setSpecificationI18nName(spec: IbaseSpecification, language: string, text: string): void {
+export function setSpecificationI18nName(spec: IbaseSpecification, language: string, text: string | null | undefined): void {
     setSpecificationI18nText(spec, language, "name", text);
 }
-export function setSpecificationI18nEntityName(spec: IbaseSpecification, language: string, entityId: number, text: string): void {
+export function setSpecificationI18nEntityName(spec: IbaseSpecification, language: string, entityId: number, text: string | null | undefined): void {
     setSpecificationI18nText(spec, language, "e" + entityId, text);
 }
-export function setSpecificationI18nEntityOptionName(spec: IbaseSpecification, language: string, entityId: number, modbusValue: number, text: string): void {
+export function setSpecificationI18nEntityOptionName(spec: IbaseSpecification, language: string, entityId: number, modbusValue: number, text: string | null | undefined): void {
     setSpecificationI18nText(spec, language, "e" + entityId + "o." + modbusValue, text);
 }
 export function deleteSpecificationI18nEntityOptionName(spec: IbaseSpecification, entityId: number, modbusValue: number): void {
