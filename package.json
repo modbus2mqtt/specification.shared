@@ -1,6 +1,6 @@
 {
   "name": "@modbus2mqtt/specification.shared",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Specification specific interfaces and functions shared with validation, server and angular ui",
   "keywords": [
     "modbus2mqtt",
@@ -10,7 +10,6 @@
   "bugs": "https://github.com/modbus2mqtt/server/issues",
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",
-
   "type": "module",
   "author": "Volkmar Nissen <volkmar.nissen@gmail.com>",
   "license": "MIT",
@@ -23,13 +22,22 @@
     "import": "./esm/index.js"
   },
   "scripts": {
+    "test": "echo 'no Tests'",
     "build.cjs": "tsc --build tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > cjs/package.json",
     "build.esm": "tsc  --build tsconfig.json && echo '{\"type\": \"module\"}' > esm/package.json",
-    "build": "npm run build.cjs && npm run build.esm",
-    "prepack": "../changeModbusDependencies.sh package.json",
-    "postpack": "rm package.json && mv package.json.bck package.json"
+    "build": "npm run build.cjs && npm run build.esm"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@types/jest": "^29.5.12",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.4",
+    "prettier": "^3.3.3",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   }
