@@ -34,21 +34,12 @@ jobs:
           node-version: "22.x"
           registry-url: "https://registry.npmjs.org"
       - name: Install modules
-        run: npm install
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Test
         run: npm run test
       - name: Publish to npm
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Setup .npmrc file to publish to GitHub Packages
-        uses: actions/setup-node@v1
-        with:
-          node-version: "22.x"
-          scope: "@modbus2mqtt"
-      - name: Publish to NPM Packages
-        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
