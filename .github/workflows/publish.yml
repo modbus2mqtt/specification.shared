@@ -4,7 +4,12 @@ on:
   push:
     tags:
       - "v*"
-
+  workflow_call:
+    secrets:
+      NODE_AUTH_TOKEN:
+        required: true
+      GITHUB_TOKEN:
+        required: true
 jobs:
   release:
     runs-on: ubuntu-latest
