@@ -15,7 +15,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/modbus2mqtt/specification.shared"
+    "url": "https://github.com/modbus2mqtt/specification.shared.git"
   },
   "exports": {
     "require": "./cjs/index.js",
