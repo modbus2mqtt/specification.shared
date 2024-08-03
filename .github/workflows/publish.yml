@@ -26,7 +26,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    environment: NPM_AUTH_TOKEN
+    environment: release
     steps:
       - uses: actions/checkout@v2
       - name: Setup .npmrc file to publish to npm
