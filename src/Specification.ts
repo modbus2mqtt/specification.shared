@@ -52,28 +52,50 @@ export interface Imessage {
   referencedEntity?: number;
   additionalInformation?: any;
 }
-export const editableConverters: string[] = ["binary_sensor", "number", "text", "select", "button"];
+export const editableConverters: string[] = [
+  "binary_sensor",
+  "number",
+  "text",
+  "select",
+  "button",
+];
 
-export function validateTranslation(spec: Ispecification, language: string, msgs: Imessage[]) {
+export function validateTranslation(
+  spec: Ispecification,
+  language: string,
+  msgs: Imessage[],
+) {
   let en = spec.i18n.find((l: { lang: string }) => l.lang === language);
   let category = MessageCategories.validateTranslation;
   if (spec.entities.length > 0) {
-    if (!en) msgs.push({ type: MessageTypes.translationMissing, category: category, additionalInformation: language });
-    else {
-      spec.entities.forEach((ent: { variableConfiguration?: any; id: number }) => {
-        if (!ent.variableConfiguration) {
-          let translation = en!.texts.find((tx: { textId: string }) => tx.textId == "e" + ent.id);
-          if (!translation)
-            msgs.push({
-              type: MessageTypes.entityTextMissing,
-              category: category,
-              referencedEntity: ent.id,
-              additionalInformation: language,
-            });
-        }
+    if (!en)
+      msgs.push({
+        type: MessageTypes.translationMissing,
+        category: category,
+        additionalInformation: language,
       });
-      let nameTranslation = en?.texts.find((tx: { textId: string }) => tx.textId == "name");
-      if (!nameTranslation) msgs.push({ type: MessageTypes.nameTextMissing, category: category });
+    else {
+      spec.entities.forEach(
+        (ent: { variableConfiguration?: any; id: number }) => {
+          if (!ent.variableConfiguration) {
+            let translation = en!.texts.find(
+              (tx: { textId: string }) => tx.textId == "e" + ent.id,
+            );
+            if (!translation)
+              msgs.push({
+                type: MessageTypes.entityTextMissing,
+                category: category,
+                referencedEntity: ent.id,
+                additionalInformation: language,
+              });
+          }
+        },
+      );
+      let nameTranslation = en?.texts.find(
+        (tx: { textId: string }) => tx.textId == "name",
+      );
+      if (!nameTranslation)
+        msgs.push({ type: MessageTypes.nameTextMissing, category: category });
     }
   }
 }

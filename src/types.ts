@@ -67,7 +67,10 @@ export interface Icvtparameter {
   needsOptions: boolean;
 }
 
-export function jsonConverter<K, V>(body: Object, cnv: (a: string) => K): Map<K, V> {
+export function jsonConverter<K, V>(
+  body: Object,
+  cnv: (a: string) => K,
+): Map<K, V> {
   let m = new Map<K, V>();
   for (var prop in body) {
     if (Object.prototype.hasOwnProperty.call(body, prop)) {
@@ -125,7 +128,9 @@ export interface Ientity extends Iid {
   entityCategory?: string;
   converterParameters?: ConverterParameter;
 }
-export function getParameterType(converter: Iconverter | null | undefined): string | undefined {
+export function getParameterType(
+  converter: Iconverter | null | undefined,
+): string | undefined {
   if (converter)
     switch (converter.name) {
       case "text":
@@ -147,7 +152,13 @@ export function cleanConverterParameters(entity: Ientity) {
   var validKeys: string[] | undefined = undefined;
   switch (getParameterType(entity.converter)) {
     case "Inumber":
-      validKeys = ["multiplier", "offset", "uom", "device_class", "identification"];
+      validKeys = [
+        "multiplier",
+        "offset",
+        "uom",
+        "device_class",
+        "identification",
+      ];
       break;
     case "Itext":
       validKeys = ["stringlength", "identification"];
@@ -190,10 +201,19 @@ export interface ImodbusData {
 export interface ImodbusEntity extends ImodbusData, Ientity {}
 
 export function instanceOfIentity(object: any): object is Ientity {
-  return "name" in object && "converter" in object && "converterParameters" in object && "converterOptions" in object;
+  return (
+    "name" in object &&
+    "converter" in object &&
+    "converterParameters" in object &&
+    "converterOptions" in object
+  );
 }
 export function instanceOfIModbusEntity(object: any): object is ImodbusEntity {
-  return instanceOfIentity(object) && "modbusValue" in object && "mqttValue" in object;
+  return (
+    instanceOfIentity(object) &&
+    "modbusValue" in object &&
+    "mqttValue" in object
+  );
 }
 
 declare global {
@@ -282,7 +302,7 @@ export function getSpecificationI18nText(
   spec: IbaseSpecification,
   language: string,
   textId: string,
-  noFallbackLanguage: boolean = false
+  noFallbackLanguage: boolean = false,
 ): string | null {
   if (!spec || !spec.i18n) return null;
   let texts = spec.i18n.find((i18) => i18.lang === language);
@@ -302,7 +322,7 @@ export function setSpecificationI18nText(
   spec: IbaseSpecification,
   language: string,
   textId: string,
-  text: string | null | undefined
+  text: string | null | undefined,
 ): void {
   if (!spec || !spec.i18n) return;
   let texts = spec.i18n.find((i18) => i18.lang === language);
@@ -318,7 +338,10 @@ export function setSpecificationI18nText(
     else texts.texts.splice(textIndex, 1);
   } else if (text) texts.texts.push({ textId: textId, text: text });
 }
-export function deleteSpecificationI18nText(spec: IbaseSpecification, textId: string): void {
+export function deleteSpecificationI18nText(
+  spec: IbaseSpecification,
+  textId: string,
+): void {
   if (!spec || !spec.i18n) return;
   spec.i18n.forEach((texts) => {
     if (texts) {
@@ -331,7 +354,7 @@ export function deleteSpecificationI18nText(spec: IbaseSpecification, textId: st
 export function getSpecificationI18nName(
   spec: IbaseSpecification,
   language: string,
-  noFallbackLanguage: boolean = false
+  noFallbackLanguage: boolean = false,
 ): string | null {
   return getSpecificationI18nText(spec, language, "name", noFallbackLanguage);
 }
@@ -339,27 +362,41 @@ export function getSpecificationI18nEntityName(
   spec: IbaseSpecification,
   language: string,
   entityId: number,
-  noFallbackLanguage: boolean = false
+  noFallbackLanguage: boolean = false,
 ) {
-  return getSpecificationI18nText(spec, language, "e" + entityId, noFallbackLanguage);
+  return getSpecificationI18nText(
+    spec,
+    language,
+    "e" + entityId,
+    noFallbackLanguage,
+  );
 }
 export function getSpecificationI18nEntityOptionName(
   spec: IbaseSpecification,
   language: string,
   entityId: number,
   modbusValue: number,
-  noFallbackLanguage: boolean = false
+  noFallbackLanguage: boolean = false,
 ): string | null {
-  return getSpecificationI18nText(spec, language, "e" + entityId + "o." + modbusValue, noFallbackLanguage);
+  return getSpecificationI18nText(
+    spec,
+    language,
+    "e" + entityId + "o." + modbusValue,
+    noFallbackLanguage,
+  );
 }
-export function setSpecificationI18nName(spec: IbaseSpecification, language: string, text: string | null | undefined): void {
+export function setSpecificationI18nName(
+  spec: IbaseSpecification,
+  language: string,
+  text: string | null | undefined,
+): void {
   setSpecificationI18nText(spec, language, "name", text);
 }
 export function setSpecificationI18nEntityName(
   spec: IbaseSpecification,
   language: string,
   entityId: number,
-  text: string | null | undefined
+  text: string | null | undefined,
 ): void {
   setSpecificationI18nText(spec, language, "e" + entityId, text);
 }
@@ -368,18 +405,35 @@ export function setSpecificationI18nEntityOptionName(
   language: string,
   entityId: number,
   modbusValue: number,
-  text: string | null | undefined
+  text: string | null | undefined,
 ): void {
-  setSpecificationI18nText(spec, language, "e" + entityId + "o." + modbusValue, text);
+  setSpecificationI18nText(
+    spec,
+    language,
+    "e" + entityId + "o." + modbusValue,
+    text,
+  );
 }
-export function deleteSpecificationI18nEntityOptionName(spec: IbaseSpecification, entityId: number, modbusValue: number): void {
+export function deleteSpecificationI18nEntityOptionName(
+  spec: IbaseSpecification,
+  entityId: number,
+  modbusValue: number,
+): void {
   deleteSpecificationI18nText(spec, "e" + entityId + "o." + modbusValue);
 }
 
-export function deleteSpecificationI18nEntityNameAndOptions(spec: IbaseSpecification, entityId: number) {
+export function deleteSpecificationI18nEntityNameAndOptions(
+  spec: IbaseSpecification,
+  entityId: number,
+) {
   spec.i18n.forEach((i18n) => {
     let textIndex;
-    while (-1 != (textIndex = i18n.texts.findIndex((tx) => tx.textId.startsWith("e" + entityId))))
+    while (
+      -1 !=
+      (textIndex = i18n.texts.findIndex((tx) =>
+        tx.textId.startsWith("e" + entityId),
+      ))
+    )
       if (textIndex >= 0) i18n.texts.splice(textIndex, 1);
   });
 }
@@ -389,20 +443,24 @@ export function getSpecificationI18nEntityOptionId(
   language: string,
   entityId: number,
   mqttValue: string,
-  noFallbackLanguage: boolean = false
+  noFallbackLanguage: boolean = false,
 ): number[] {
   if (!spec || !spec.i18n) return [0];
   let texts = spec.i18n.find((i18) => i18.lang === language);
   let key = "e" + entityId + "o.";
   let enTexts = spec.i18n.find((i18) => i18.lang === "en");
   if (texts) {
-    let text: string | undefined = texts.texts.find((tx) => tx.text === mqttValue && tx.textId.startsWith(key))?.textId;
+    let text: string | undefined = texts.texts.find(
+      (tx) => tx.text === mqttValue && tx.textId.startsWith(key),
+    )?.textId;
     if (text) {
       return [parseInt(text.substring(key.length))];
     }
   }
   if (enTexts && !noFallbackLanguage) {
-    let text: string | undefined = enTexts.texts.find((tx) => tx.text === mqttValue && tx.textId.startsWith(key))?.textId;
+    let text: string | undefined = enTexts.texts.find(
+      (tx) => tx.text === mqttValue && tx.textId.startsWith(key),
+    )?.textId;
     if (text) return [parseInt(text.substring(key.length))];
   }
   return [0];

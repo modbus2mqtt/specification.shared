@@ -1,6 +1,6 @@
 {
   "name": "@modbus2mqtt/specification.shared",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Specification specific interfaces and functions shared with validation, server and angular ui",
   "keywords": [
     "modbus2mqtt",
@@ -25,7 +25,8 @@
     "test": "echo 'no Tests'",
     "build.cjs": "tsc --build tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > cjs/package.json",
     "build.esm": "tsc  --build tsconfig.json && echo '{\"type\": \"module\"}' > esm/package.json",
-    "build": "npm run build.cjs  && npm run build.esm"
+    "build": "npm run build.cjs  && npm run build.esm",
+    "prettier": "prettier --write '**/*.{ts,js,css,html,tsx}'"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
