@@ -19,6 +19,10 @@ jobs:
         with:
           node-version: "22.x"
           registry-url: "https://registry.npmjs.org"
+      - name: check npm access
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       - name: Clear npm cache
         run: npm cache clean --force
       - name: Install modules
