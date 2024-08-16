@@ -8,6 +8,8 @@ on:
     secrets:
       NODE_AUTH_TOKEN:
         required: true
+permissions:
+  contents: write
 jobs:
   publish:
     runs-on: ubuntu-latest
