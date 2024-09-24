@@ -198,7 +198,9 @@ export interface ImodbusData {
   identified: IdentifiedStates;
   modbusError?: string;
 }
-export interface ImodbusEntity extends ImodbusData, Ientity {}
+export interface ImodbusEntity extends ImodbusData, Ientity {
+  commandTopic?: string
+}
 
 export function instanceOfIentity(object: any): object is Ientity {
   return (
@@ -282,6 +284,7 @@ export interface IbaseSpecification {
 export interface ImodbusEntityIdentification extends Iid {
   modbusValue: number[];
   mqttValue: string | number;
+  commandTopic?:string;
   identified: IdentifiedStates;
 }
 
@@ -289,6 +292,8 @@ export interface ImodbusSpecification extends IbaseSpecification {
   identified: IdentifiedStates;
   entities: ImodbusEntity[];
   pullUrl?: string;
+  stateTopic?:string;
+  statePayload?:string
 }
 export interface Ispecification extends IbaseSpecification {
   entities: Ientity[];
