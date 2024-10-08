@@ -200,6 +200,7 @@ export interface ImodbusData {
 }
 export interface ImodbusEntity extends ImodbusData, Ientity {
   commandTopic?: string
+  commandTopicModbus?: string;
 }
 
 export function instanceOfIentity(object: any): object is Ientity {
@@ -285,6 +286,7 @@ export interface ImodbusEntityIdentification extends Iid {
   modbusValue: number[];
   mqttValue: string | number;
   commandTopic?:string;
+  commandTopicModbus?:string;
   identified: IdentifiedStates;
 }
 
