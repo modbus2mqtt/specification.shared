@@ -24,7 +24,10 @@ export enum EnumNumberFormat {
   default = 0,
   float32 = 1,
 }
-
+export interface IimportMessages {
+  warnings:string,
+  errors:string
+}
 export interface IselectOption extends Iname {
   key: number;
 }
