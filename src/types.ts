@@ -298,7 +298,8 @@ export interface ImodbusSpecification extends IbaseSpecification {
   entities: ImodbusEntity[];
   pullUrl?: string;
   stateTopic?:string;
-  statePayload?:string
+  statePayload?:string;
+  triggerPollTopic?:string;
 }
 export interface Ispecification extends IbaseSpecification {
   entities: Ientity[];
