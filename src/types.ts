@@ -229,6 +229,8 @@ declare global {
 }
 
 export const SPECIFICATION_VERSION = "0.3";
+export const SPECIFICATION_FILES_VERSION = "0.1";
+
 export const enum SpecificationStatus {
   published = 0,
   cloned = 1,
