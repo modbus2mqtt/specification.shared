@@ -46,6 +46,7 @@ export interface Inumber extends Islave_class {
   offset?: number;
   numberFormat?: EnumNumberFormat;
   uom?: string;
+  step?:number;
   identification?: IminMax;
 }
 export interface Itext {
