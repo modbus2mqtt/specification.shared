@@ -23,6 +23,13 @@ export enum ModbusRegisterType {
 export enum EnumNumberFormat {
   default = 0,
   float32 = 1,
+  signedInt16 = 2,
+}
+export enum EnumStateClasses {
+  none = 0,
+  measurement = 1,
+  total = 2,
+  total_increasing = 3
 }
 export interface IimportMessages {
   warnings:string,
@@ -45,6 +52,7 @@ export interface Inumber extends Islave_class {
   multiplier?: number;
   offset?: number;
   numberFormat?: EnumNumberFormat;
+  state_class?:EnumStateClasses;
   uom?: string;
   step?:number;
   identification?: IminMax;
