@@ -32,7 +32,11 @@ jobs:
           node-version: 20.x
       - name: Install modules
         run: npm ci .
-      - name: list modules
-        run: cat package.json
+      - name: uninstall modules
+        run: npm uninstall @modbus2mqtt/specification.shared @modbus2mqtt/specification
+      - name: install modules
+        run: npm install @modbus2mqtt/specification.shared @modbus2mqtt/specification
+      - name: list
+        run: ls node_modules/@modbus2mqtt/*
       - name: Run tests
         run: npm test
