@@ -37,6 +37,6 @@ jobs:
       - name: install modules
         run: npm install @modbus2mqtt/specification.shared @modbus2mqtt/specification
       - name: list
-        run: ls node_modules/@modbus2mqtt/*
+        run: git diff package-lock.json
       - name: Run tests
         run: npm test
