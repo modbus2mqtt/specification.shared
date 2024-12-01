@@ -296,21 +296,11 @@ export interface IbaseSpecification {
   i18n: ISpecificationTexts[];
   nextEntityId?: number; // required for cloned specs.The entityId should never be reused for a specification regardles of the specification status (public or cloned). Then entity comparision is possible
 }
-export interface ImodbusEntityIdentification extends Iid {
-  modbusValue: number[];
-  mqttValue: string | number;
-  commandTopic?:string;
-  commandTopicModbus?:string;
-  identified: IdentifiedStates;
-}
 
 export interface ImodbusSpecification extends IbaseSpecification {
   identified: IdentifiedStates;
   entities: ImodbusEntity[];
   pullUrl?: string;
-  stateTopic?:string;
-  statePayload?:string;
-  triggerPollTopic?:string;
 }
 export interface Ispecification extends IbaseSpecification {
   entities: Ientity[];
