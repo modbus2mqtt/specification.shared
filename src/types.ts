@@ -487,12 +487,12 @@ export function getFileNameFromName(name: string): string | undefined {
   let n = name.toLowerCase();
   return n.replace(searchRegExp, "");
 }
-
+export const newSpecfilename:string = "_new"
 export const newSpecification: ImodbusSpecification = {
   identified: IdentifiedStates.unknown,
   entities: [],
   i18n: [],
   files: [],
-  filename: "_new",
+  filename: newSpecfilename,
   status: SpecificationStatus.new,
 };
