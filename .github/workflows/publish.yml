@@ -40,6 +40,9 @@ jobs:
         uses: andstor/file-existence-action@v2
         with:
           files: "./cypress/e2e/*.*"
+      - name: Add Packages and System services for e2e Tests
+        if: steps.check_localdev.outputs.files_exists == 'true'
+        run: ./e2e/localdev.sh root
       - name: Install local services for e2e Tests
         if: steps.check_localdev.outputs.files_exists == 'true'
         run: ./e2e/localdev.sh
