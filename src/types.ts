@@ -52,6 +52,7 @@ export interface Inumber extends Islave_class {
   multiplier?: number;
   offset?: number;
   numberFormat?: EnumNumberFormat;
+  decimals?:number;
   state_class?:EnumStateClasses;
   uom?: string;
   step?:number;
@@ -133,6 +134,7 @@ export interface Ientity extends Iid {
     targetParameter: VariableTargetParameters;
     entityId?: number;
   };
+  value_template?:string;
   registerType: ModbusRegisterType;
   modbusAddress: number;
   icon?: string;
