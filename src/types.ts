@@ -24,6 +24,8 @@ export enum EnumNumberFormat {
   default = 0,
   float32 = 1,
   signedInt16 = 2,
+  signedInt32 = 3,
+  unsignedInt32 = 4,
 }
 export enum EnumStateClasses {
   none = 0,
