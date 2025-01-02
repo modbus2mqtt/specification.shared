@@ -214,10 +214,7 @@ export interface ImodbusData {
   identified: IdentifiedStates;
   modbusError?: string;
 }
-export interface ImodbusEntity extends ImodbusData, Ientity {
-  commandTopic?: string
-  commandTopicModbus?: string;
-}
+export interface ImodbusEntity extends ImodbusData, Ientity {}
 
 export function instanceOfIentity(object: any): object is Ientity {
   return (
