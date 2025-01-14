@@ -15,10 +15,11 @@ export enum HttpErrorsEnum {
 }
 export const BUS_TIMEOUT_DEFAULT = 500;
 export enum ModbusRegisterType {
-  HoldingRegister = 3,
-  Coils = 1,
-  AnalogInputs = 4,
   IllegalFunctionCode = 0,
+  Coils = 1,
+  DiscreteInputs = 2,
+  HoldingRegister = 3,
+  AnalogInputs = 4,
 }
 export enum EnumNumberFormat {
   default = 0,
