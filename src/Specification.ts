@@ -1,4 +1,4 @@
-import { Ispecification } from "./types";
+import { ImodbusSpecification, Ispecification, VariableTargetParameters } from './types'
 export enum MessageTypes {
   nameTextMissing = 0,
   entityTextMissing = 1,
@@ -47,61 +47,54 @@ export enum MessageCategories {
   configuration = 8,
 }
 export interface Imessage {
-  type: MessageTypes;
-  category: MessageCategories;
-  referencedEntity?: number;
-  additionalInformation?: any;
+  type: MessageTypes
+  category: MessageCategories
+  referencedEntity?: number
+  additionalInformation?: any
 }
-export const editableConverters: string[] = [
-  "binary_sensor",
-  "number",
-  "text",
-  "select",
-  "button",
-];
+export const editableConverters: string[] = ['binary_sensor', 'number', 'text', 'select', 'button']
 
-export function validateTranslation(
-  spec: Ispecification,
-  language: string,
-  msgs: Imessage[],
-) {
-  let en = spec.i18n.find((l: { lang: string }) => l.lang === language);
-  let category = MessageCategories.validateTranslation;
+export function validateTranslation(spec: Ispecification, language: string, msgs: Imessage[]) {
+  let en = spec.i18n.find((l: { lang: string }) => l.lang === language)
+  let category = MessageCategories.validateTranslation
   if (spec.entities.length > 0) {
     if (!en)
       msgs.push({
         type: MessageTypes.translationMissing,
         category: category,
         additionalInformation: language,
-      });
+      })
     else {
-      spec.entities.forEach(
-        (ent: { variableConfiguration?: any; id: number }) => {
-          if (!ent.variableConfiguration) {
-            let translation = en!.texts.find(
-              (tx: { textId: string }) => tx.textId == "e" + ent.id,
-            );
-            if (!translation)
-              msgs.push({
-                type: MessageTypes.entityTextMissing,
-                category: category,
-                referencedEntity: ent.id,
-                additionalInformation: language,
-              });
-          }
-        },
-      );
-      let nameTranslation = en?.texts.find(
-        (tx: { textId: string }) => tx.textId == "name",
-      );
-      if (!nameTranslation)
-        msgs.push({ type: MessageTypes.nameTextMissing, category: category });
+      spec.entities.forEach((ent: { variableConfiguration?: any; id: number }) => {
+        if (!ent.variableConfiguration) {
+          let translation = en!.texts.find((tx: { textId: string }) => tx.textId == 'e' + ent.id)
+          if (!translation)
+            msgs.push({
+              type: MessageTypes.entityTextMissing,
+              category: category,
+              referencedEntity: ent.id,
+              additionalInformation: language,
+            })
+        }
+      })
+      let nameTranslation = en?.texts.find((tx: { textId: string }) => tx.textId == 'name')
+      if (!nameTranslation) msgs.push({ type: MessageTypes.nameTextMissing, category: category })
     }
   }
 }
 
 export function getBaseFilename(filename: string): string {
-  let idx = filename.lastIndexOf("/");
-  if (idx >= 0) return filename.substring(idx + 1);
-  return filename;
+  let idx = filename.lastIndexOf('/')
+  if (idx >= 0) return filename.substring(idx + 1)
+  return filename
+}
+export function getUom(spec: ImodbusSpecification, entityId: number): string {
+  let ent = spec.entities.find((e) => e.id == entityId)
+  let entUom = spec.entities.find(
+    (e) =>
+      e.variableConfiguration &&
+      e.variableConfiguration.targetParameter == VariableTargetParameters.entityUom &&
+      e.variableConfiguration.entityId == entityId
+  )
+  return entUom && entUom.mqttValue ? (entUom.mqttValue as string) : ''
 }
