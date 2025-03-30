@@ -52,7 +52,7 @@
             "console": "integratedTerminal"
         },         
         {
-            "name": "pulls dependency with pullrequest",
+            "name": "pulls dependency with closed pullrequest",
             "type": "debugpy",
             "request": "launch",
             "cwd": "${workspaceFolder}",
@@ -62,12 +62,22 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "pulls dependency with pullrequest",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/bin/pulls.py",
+             "args": ["-p", "repositories.test.json", "dependencies", "pull", 
+              "--pullrequest","test1:5" ], 
+            "console": "integratedTerminal"
+        },
+        {
             "name": "pulls pullsync",
             "type": "debugpy",
             "request": "launch",
-            "cwd": "${workspaceFolder}/../x",
+            "cwd": "${workspaceFolder}",
             "program": "${workspaceFolder}/bin/pulls.py",
-             "args": ["-p", "../modbus2mqtt.dev/repositories.test.json", "syncpull", "test1:5" , "pull5"], 
+             "args": ["-p", "../modbus2mqtt.dev/repositories.test.json", "syncpull" , "pull5" , "-r", "test1:5"], 
             "console": "integratedTerminal"
         },
         {
@@ -85,7 +95,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "program": "${workspaceFolder}/bin/pulls.py",
-             "args": [ "testorwait", "angular:3", "Test\\nrequired PRs: angular:3, server:105"], 
+             "args": [ "-p","repositories.test.json" , "testorwait", "test1:5", "Test\\nrequired PRs: test1:5, test2:6"], 
             "console": "integratedTerminal"
         },
         {
@@ -94,7 +104,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "program": "${workspaceFolder}/bin/pulls.py",
-             "args": [ "createpull"], 
+             "args": [  "-p","repositories.test.json" ,"createpull"], 
             "console": "integratedTerminal"
         },
         {
