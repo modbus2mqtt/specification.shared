@@ -1,4 +1,4 @@
-Changelog for specification.shared
+# Changelog
 
 ## [v0.10.10](https://github.com/modbus2mqtt/specification.shared/tree/v0.10.10) (2025-01-15)
 
