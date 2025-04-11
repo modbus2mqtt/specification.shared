@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
+      - run: echo "$GITHUB_CONTEXT" 
       - uses: actions/checkout@v4
       - name: "✏️ Generate changelog"
         uses: heinrichreimer/action-github-changelog-generator@v2.4
