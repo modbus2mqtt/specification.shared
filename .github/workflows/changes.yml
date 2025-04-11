@@ -1,0 +1,24 @@
+name: On push Update Changes.md
+
+on:
+  push:
+  workflow_call:
+
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+      - name: "✏️ Generate changelog"
+        uses: heinrichreimer/action-github-changelog-generator@v2.4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          output: CHANGELOG.md
+      - name: Checkin CHANGES.md
+        uses: stefanzweifel/git-auto-commit-action@v5
+
+      
+          

@@ -111,9 +111,9 @@
             "name": "releaseAddon development",
             "type": "debugpy",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "program": "${workspaceFolder}/bin/releaseAddon.py",
-            "args": ["-r"],
+            "cwd": "~/modbus2mqtt.dev",
+            "program": "~/modbus2mqtt.dev/bin/releaseAddon.py",
+            "args": ["--pkgjson", "server"],
             "console": "integratedTerminal"
         }
     ]
