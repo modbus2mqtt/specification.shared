@@ -22,7 +22,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           output: CHANGELOG.md
-          headerLabel: Changelog for ${{github.event.push.base.repo.name}}
+          headerLabel: Changelog for ${{github.event.repository.name}}
       - name: Checkin CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
