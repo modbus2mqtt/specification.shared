@@ -202,7 +202,6 @@ export interface ImodbusData {
   modbusValue: number[]
   mqttValue: string | number
   identified: IdentifiedStates
-  modbusError?: string
 }
 export interface ImodbusEntity extends ImodbusData, Ientity {}
 
