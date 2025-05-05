@@ -72,11 +72,6 @@ export interface IFunctionCode {
   registerType: ModbusRegisterType
   name: string
 }
-export interface Iconverter {
-  name: Converters
-  registerTypes: ModbusRegisterType[]
-}
-
 export interface Icvtparameter {
   reqPara: string[]
   optPara: string[]
@@ -126,10 +121,13 @@ export interface IminMax {
   min: number
   max: number
 }
-export interface Ientity extends Iid {
-  mqttname?: string
-  converter: Iconverter
-  readonly: boolean
+export interface IidentEntity extends Iid{
+  name?:string,
+  readonly:boolean,
+  mqttname?:string
+}
+export interface Ientity extends IidentEntity {
+  converter: Converters
   variableConfiguration?: {
     targetParameter: VariableTargetParameters
     entityId?: number
@@ -142,9 +140,9 @@ export interface Ientity extends Iid {
   entityCategory?: string
   converterParameters?: ConverterParameter
 }
-export function getParameterType(converter: Iconverter | null | undefined): string | undefined {
+export function getParameterType(converter: Converters | null | undefined): string | undefined {
   if (converter)
-    switch (converter.name) {
+    switch (converter  ) {
       case 'text':
         return 'Itext'
       case 'number':
@@ -218,7 +216,7 @@ declare global {
   }
 }
 
-export const SPECIFICATION_VERSION = '0.3'
+export const SPECIFICATION_VERSION = '0.4'
 export const SPECIFICATION_FILES_VERSION = '0.1'
 
 export const enum SpecificationStatus {
