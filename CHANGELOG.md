@@ -6,7 +6,10 @@
 
 ## [v0.10.9](https://github.com/volkmarnissen/specification.shared/tree/v0.10.9) (2025-01-01)
 
-[Full Changelog](https://github.com/volkmarnissen/specification.shared/compare/v0.10.8...v0.10.9)
+- \[bug\]Modbus Error Handling, Slave Specification Detection, TCP RTU bridge, Fixes [\#6](https://github.com/modbus2mqtt/specification.shared/pull/6) ([volkmarnissen](https://github.com/volkmarnissen))
+- \[bug\]Modbus Error Handling, Slave Specification Detection, TCP RTU bridge, Fixes [\#5](https://github.com/modbus2mqtt/specification.shared/pull/5) ([volkmarnissen](https://github.com/volkmarnissen))
+- \[bug\]Modbus Error Handling, Slave Specification Detection, TCP RTU bridge, Fixes [\#4](https://github.com/modbus2mqtt/specification.shared/pull/4) ([volkmarnissen](https://github.com/volkmarnissen))
+- Modbus Error Handling and Monitoring [\#3](https://github.com/modbus2mqtt/specification.shared/pull/3) ([volkmarnissen](https://github.com/volkmarnissen))
 
 ## [v0.10.8](https://github.com/volkmarnissen/specification.shared/tree/v0.10.8) (2024-12-13)
 
