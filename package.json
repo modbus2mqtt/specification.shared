@@ -1,6 +1,6 @@
 {
   "name": "@modbus2mqtt/specification.shared",
-  "version": "0.10.16",
+  "version": "0.10.17",
   "description": "Specification specific interfaces and functions shared with validation, server and angular ui",
   "keywords": [
     "modbus2mqtt",
