@@ -59,10 +59,13 @@ export interface Inumber extends Islave_class {
   state_class?: EnumStateClasses
   uom?: string
   step?: number
+  swapWords?: boolean
+  swapBytes?: boolean
   identification?: IminMax
 }
 export interface Itext {
   stringlength: number
+  swapBytes?: boolean
   identification?: string
 }
 export interface Ivalue {
